@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Order.Application.Contracts.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Order.Application.Features.Orders.Queries.GetOrdersList
 {

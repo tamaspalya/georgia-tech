@@ -19,5 +19,8 @@
       "publishAllPorts": true,
       "useSSL": true
     }
+  },
+  "environmentVariables": {
+    "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "0"
   }
 }

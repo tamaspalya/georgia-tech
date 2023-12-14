@@ -19,6 +19,8 @@ FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./Order.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .

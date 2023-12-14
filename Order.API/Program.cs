@@ -5,12 +5,9 @@ using Microsoft.OpenApi.Models;
 using Order.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
-using Logging;
-using Serilog;
-using MediatR;
-using Order.Application.Features.Orders.Commands.CheckoutOrder;
-using Order.Application.Contracts.Persistence;
-using Order.Infrastructure.Repositories;
+using Order.Infrastructure;
+using Order.Application;
+
 
 namespace Order.API
 {
@@ -19,6 +16,9 @@ namespace Order.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddApplicationServices();
+            builder.Services.AddInfrastructureServices(builder.Configuration);
 
             // Add services to the container.
             builder.Services.AddMassTransit(x =>
@@ -36,13 +36,8 @@ namespace Order.API
                 });
             });
 
-            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<BasketCheckoutConsumer>();
-
             builder.Services.AddAutoMapper(typeof(Program));
-
-            // Configure Serilog
-            builder.Host.UseSerilog(SeriLogger.Configure);
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -58,6 +53,8 @@ namespace Order.API
 
             var app = builder.Build();
 
+            app.UseRouting();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -72,17 +69,9 @@ namespace Order.API
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                try
-                {
-                    var context = services.GetRequiredService<OrderContext>();
-                    var logger = services.GetService<ILogger<OrderContextSeed>>();
-                    OrderContextSeed.SeedAsync(context, logger).Wait();
-                }
-                catch (Exception ex)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred while migrating or initializing the database.");
-                }
+                var context = services.GetRequiredService<OrderContext>();
+                var logger = services.GetService<ILogger<OrderContextSeed>>();
+                OrderContextSeed.SeedAsync(context, logger).Wait();
             }
 
             // Configure the HTTP request pipeline.
