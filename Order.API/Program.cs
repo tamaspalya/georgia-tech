@@ -9,6 +9,8 @@ using Logging;
 using Serilog;
 using MediatR;
 using Order.Application.Features.Orders.Commands.CheckoutOrder;
+using Order.Application.Contracts.Persistence;
+using Order.Infrastructure.Repositories;
 
 namespace Order.API
 {
@@ -34,7 +36,9 @@ namespace Order.API
                 });
             });
 
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<BasketCheckoutConsumer>();
+
             builder.Services.AddAutoMapper(typeof(Program));
 
             // Configure Serilog
