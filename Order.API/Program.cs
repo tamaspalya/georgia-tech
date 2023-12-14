@@ -8,7 +8,6 @@ using HealthChecks.UI.Client;
 using Order.Infrastructure;
 using Order.Application;
 
-
 namespace Order.API
 {
     public class Program
