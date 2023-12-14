@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  bookmanagement.api:
+    image: ${DOCKER_REGISTRY-}bookmanagementapi
+    build:
+      context: .
+      dockerfile: BookManagement.API/Dockerfile
+
+  order.api:
+    image: ${DOCKER_REGISTRY-}orderapi
+    build:
+      context: .
+      dockerfile: Order.API/Dockerfile
+
+  search.api:
+    image: ${DOCKER_REGISTRY-}searchapi
+    build:
+      context: .
+      dockerfile: Search.API/Dockerfile
+
+  warehousedb:
+    image: mongo
+
+  warehouse.api:
+    image: ${DOCKER_REGISTRY-}warehouseapi
+    build:
+      context: .
+      dockerfile: Warehouse.API/Dockerfile
+
+volumes:
+  mongo_data:
