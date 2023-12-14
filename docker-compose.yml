@@ -7,6 +7,9 @@ services:
       context: .
       dockerfile: BookManagement.API/Dockerfile
 
+  orderdb:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+
   order.api:
     image: ${DOCKER_REGISTRY-}orderapi
     build:
