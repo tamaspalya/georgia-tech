@@ -1,6 +1,7 @@
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.OpenApi.Models;
 using WarehouseAPI.Data;
 using WarehouseAPI.Data.Interfaces;
 using WarehouseAPI.Repositories;
@@ -15,14 +16,16 @@ namespace WarehouseAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddScoped<IWarehouseContext, WarehouseContext>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            builder.Services.AddScoped<IWarehouseContext, WarehouseContext>();
-            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Warehouse.API", Version = "v1" });
+            });
 
             var mongoDbConnectionString = builder.Configuration["DatabaseSettings:ConnectionString"];
 
@@ -38,7 +41,7 @@ namespace WarehouseAPI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Warehouse.API v1"));
             }
 
             app.UseHttpsRedirection();

@@ -27,12 +27,20 @@ services:
 
   warehousedb:
     image: mongo
+    networks:
+      - georigatech
 
   warehouse.api:
     image: ${DOCKER_REGISTRY-}warehouseapi
     build:
       context: .
       dockerfile: Warehouse.API/Dockerfile
+    networks:
+      - georigatech
 
 volumes:
   mongo_data:
+  
+networks:
+  georigatech:
+    driver: bridge
