@@ -9,8 +9,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Warehouse.API/Warehouse.API.csproj", "Warehouse.API/"]
-COPY ["Random/Random.csproj", "Random/"]
-COPY ["Common.Logging/Common.Logging.csproj", "Common.Logging/"]
+COPY ["Logging/Logging.csproj", "Logging/"]
 RUN dotnet restore "./Warehouse.API/./Warehouse.API.csproj"
 COPY . .
 WORKDIR "/src/Warehouse.API"
