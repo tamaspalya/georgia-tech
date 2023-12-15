@@ -8,7 +8,7 @@ EXPOSE 8082
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Warehouse.API/Warehouse.API.csproj", "Warehouse.API/"]
+COPY ["Services/Warehouse/Warehouse.API/Warehouse.API.csproj", "Services/Warehouse/Warehouse.API/"]
 RUN dotnet restore "./Warehouse.API/./Warehouse.API.csproj"
 COPY . .
 WORKDIR "/src/Warehouse.API"
