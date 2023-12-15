@@ -11,14 +11,12 @@ services:
   bookmanagement.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+      - ASPNETCORE_HTTP_PORTS=8084
+    depends_on:
+      - rabbitmq
     ports:
-      - "8080"
-      - "8081"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - "8084"
  
   orderdb:
     container_name: orderdb
@@ -31,27 +29,23 @@ services:
 
   order.api:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
+        - ASPNETCORE_ENVIRONMENT=Development
+        - "ConnectionStrings:OrderConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=SwN12345678"            
+        - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+        - "ElasticConfiguration:Uri=http://elasticsearch:9200"
+        - ASPNETCORE_HTTP_PORTS=8083
+    depends_on:
+        - orderdb
+        - rabbitmq
     ports:
-      - "8080"
-      - "8081"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+        - "8083"
 
   search.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
     ports:
       - "8080"
-      - "8081"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
     
   warehousedb:
     container_name: warehousedb
@@ -64,13 +58,10 @@ services:
   warehouse.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://warehousedb:27017"
+      - "ElasticConfiguration:Uri=http://elasticsearch:9200"
       - ASPNETCORE_HTTP_PORTS=8082
-      - ASPNETCORE_HTTPS_PORTS=8083
     depends_on:
       - warehousedb
     ports:
       - "8082"
-      - "8083"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
