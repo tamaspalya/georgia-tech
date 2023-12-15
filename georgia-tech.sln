@@ -37,7 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookManagement.Application"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookManagement.Domain", "..\BookManagement.Domain\BookManagement.Domain.csproj", "{DF5BD4B5-0029-45C5-B008-1ECA0E782B39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Logging", "Common.Logging\Common.Logging.csproj", "{3FEBB392-5DE8-4980-9944-B1CD7035FC34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Logging", "Common.Logging\Common.Logging.csproj", "{3FEBB392-5DE8-4980-9944-B1CD7035FC34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Random", "Random\Random.csproj", "{E8DC9D00-68CA-4D8B-A8B6-9C3340926241}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,10 @@ Global
 		{3FEBB392-5DE8-4980-9944-B1CD7035FC34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FEBB392-5DE8-4980-9944-B1CD7035FC34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FEBB392-5DE8-4980-9944-B1CD7035FC34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8DC9D00-68CA-4D8B-A8B6-9C3340926241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8DC9D00-68CA-4D8B-A8B6-9C3340926241}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8DC9D00-68CA-4D8B-A8B6-9C3340926241}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8DC9D00-68CA-4D8B-A8B6-9C3340926241}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
