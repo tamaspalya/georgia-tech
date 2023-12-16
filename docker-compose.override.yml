@@ -63,5 +63,6 @@ services:
       - ASPNETCORE_HTTP_PORTS=8082
     depends_on:
       - warehousedb
+      - rabbitmq 
     ports:
       - "8082"
