@@ -8,8 +8,10 @@ EXPOSE 8082
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Services/Warehouse/Warehouse.API/Warehouse.API.csproj", "Services/Warehouse/Warehouse.API/"]
-RUN dotnet restore "./Warehouse.API/./Warehouse.API.csproj"
+COPY ["Warehouse.API/Warehouse.API.csproj", "Warehouse.API/"]
+RUN dotnet restore "Warehouse.API/Warehouse.API.csproj"
+COPY ["Common.Logging/Common.Logging.csproj", "Common.Logging/"]
+RUN dotnet restore "Common.Logging/Common.Logging.csproj"
 COPY . .
 WORKDIR "/src/Warehouse.API"
 RUN dotnet build "./Warehouse.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
