@@ -28,6 +28,7 @@ namespace WarehouseAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Warehouse.API", Version = "v1" });
             });
 
+            /*
             builder.Services.AddMassTransit(x =>
             {
                 x.AddConsumer<BookAddedEventConsumer>();
@@ -40,6 +41,7 @@ namespace WarehouseAPI
                     });
                 });
             });
+            */
 
             var mongoDbConnectionString = builder.Configuration["DatabaseSettings:ConnectionString"];
 

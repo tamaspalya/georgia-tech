@@ -28,4 +28,4 @@ jobs:
         context: .
         file: ./Warehouse.API/Dockerfile
         push: true
-        tags: tamaspalya/warehouseapi:latest
+        tags: georgiatech/tamaspalya/warehouseapi:latest
