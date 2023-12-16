@@ -1,4 +1,5 @@
 using HealthChecks.UI.Client;
+using MassTransit;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
@@ -25,6 +26,19 @@ namespace WarehouseAPI
             builder.Services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Warehouse.API", Version = "v1" });
+            });
+
+            builder.Services.AddMassTransit(x =>
+            {
+                x.AddConsumer<BookAddedEventConsumer>();
+
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.ReceiveEndpoint("book_added_queue", e =>
+                    {
+                        e.ConfigureConsumer<BookAddedEventConsumer>(context);
+                    });
+                });
             });
 
             var mongoDbConnectionString = builder.Configuration["DatabaseSettings:ConnectionString"];
