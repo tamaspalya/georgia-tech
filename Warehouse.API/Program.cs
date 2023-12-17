@@ -1,3 +1,4 @@
+using EventBus.Messages.Events;
 using HealthChecks.UI.Client;
 using MassTransit;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -8,6 +9,7 @@ using WarehouseAPI.Data;
 using WarehouseAPI.Data.Interfaces;
 using WarehouseAPI.Repositories;
 using WarehouseAPI.Repositories.Interfaces;
+using EventBus.Messages.Filters;
 
 namespace WarehouseAPI
 {
