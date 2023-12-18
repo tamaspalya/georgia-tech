@@ -9,6 +9,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["BookManagement.API/BookManagement.API.csproj", "BookManagement.API/"]
+COPY ["EventBus.Messages/EventBus.Messages.csproj", "EventBus.Messages/"]
 RUN dotnet restore "./BookManagement.API/./BookManagement.API.csproj"
 COPY . .
 WORKDIR "/src/BookManagement.API"
