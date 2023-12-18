@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace BookManagement.API.Controllers;
 
@@ -14,21 +13,18 @@ public class BookManagementController : ControllerBase
         _logger = logger;
     }
 
-    // This method can be used to add a new book
     [HttpPost(Name = "AddBook")]
     public IActionResult AddBook()
     {
         throw new NotImplementedException("This method is not implemented yet.");
     }
 
-    // This method can be used to update an existing book
     [HttpPut(Name = "UpdateBook")]
     public IActionResult UpdateBook()
     {
         throw new NotImplementedException("This method is not implemented yet.");
     }
 
-    // This method can be used to remove an existing book
     [HttpDelete(Name = "RemoveBook")]
     public IActionResult RemoveBook()
     {
