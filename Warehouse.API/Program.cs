@@ -1,4 +1,3 @@
-using EventBus.Messages.Events;
 using HealthChecks.UI.Client;
 using MassTransit;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -9,7 +8,7 @@ using WarehouseAPI.Data;
 using WarehouseAPI.Data.Interfaces;
 using WarehouseAPI.Repositories;
 using WarehouseAPI.Repositories.Interfaces;
-using EventBus.Messages.Filters;
+using System.Reflection;
 
 namespace WarehouseAPI
 {
@@ -22,6 +21,9 @@ namespace WarehouseAPI
             // Add services to the container.
             builder.Services.AddScoped<IWarehouseContext, WarehouseContext>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+            builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
